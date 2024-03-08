@@ -13,7 +13,7 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "dev": "node server.js"
+    "dev": "server.js"
   },
   "author": "",
   "license": "ISC",

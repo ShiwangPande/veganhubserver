@@ -15,7 +15,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", paymentRoute);
-
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://veganhub.vercel.app');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
 app.get("/", (req, res) => {
     res.send("I am server");
 })
@@ -36,7 +40,7 @@ app.post("/api/sendmail", (req, res) => {
         const transporter = nodemailer.createTransport({
             service: "gmail",
             host: process.env.EMAIL_HOST,
-            Port:"587",
+            Port: "587",
             auth: {
                 user: process.env.EMAIL,
                 pass: process.env.PASSWORD

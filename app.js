@@ -16,6 +16,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", paymentRoute);
 
+app.get("/", (req, res) => {
+    res.send("I am server");
+})
+
 app.get("/api/getkey", (req, res) => {
     res.status(200).json({
         key: process.env.RAZORPAY_API_KEY,
@@ -31,6 +35,8 @@ app.post("/api/sendmail", (req, res) => {
 
         const transporter = nodemailer.createTransport({
             service: "gmail",
+            host: process.env.EMAIL_HOST,
+            Port:"587",
             auth: {
                 user: process.env.EMAIL,
                 pass: process.env.PASSWORD

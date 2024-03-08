@@ -1,7 +1,14 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
-export const connectDB = async () => {
-   const { connection } = await mongoose.connect(process.env.MONGO_URI).catch((err) => console.log(err));
-
-   console.log(`MongoDB is connected with ${connection.host}`);
+async function connectDB() {
+   try {
+      const connection = await mongoose.connect(process.env.MONGO_URI);
+      console.log("Connected to MongoDB");
+      console.log("Connection:", connection); // Log the connection object
+      // Continue with your code that uses the connection object...
+   } catch (error) {
+      console.error("Error connecting to MongoDB:", error);
+   }
 }
+
+connectDB();

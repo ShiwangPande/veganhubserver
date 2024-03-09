@@ -39,7 +39,7 @@ export const paymentVerification = async (req, res) => {
         );
 
         res.redirect(
-            `https://veganhub.vercel.app/paymentsuccess?reference=${razorpay_payment_id}`
+            `https://vegan-hub.vercel.app/paymentsuccess?reference=${razorpay_payment_id}`
         );
     } else {
         res.status(400).json({

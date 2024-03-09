@@ -40,7 +40,17 @@ app.post('/submit-form', (req, res) => {
         return res.status(200).json({ message: 'Data inserted successfully' });
     });
 });
-
+app.get('/api/users', (req, res) => {
+    // Perform a SQL query to fetch data from the database
+    pool.query('SELECT * FROM users', (err, results) => {
+        if (err) {
+            console.error('Error fetching data from MySQL database:', err);
+            return res.status(500).json({ error: 'Failed to fetch data from database' });
+        }
+        console.log('Data fetched from MySQL database');
+        return res.status(200).json(results);
+    });
+});
 // Start the Express server
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {

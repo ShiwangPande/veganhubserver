@@ -1,10 +1,13 @@
 import express from 'express';
 import mysql from 'mysql2';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config(); // Load environment variables
 
 const app = express();
+
+app.use(cors());
 
 // Create a MySQL connection pool
 const pool = mysql.createPool({

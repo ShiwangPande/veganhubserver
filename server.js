@@ -1,16 +1,10 @@
-// server.js
-
 import express from 'express';
 import mysql from 'mysql2';
 import dotenv from 'dotenv';
-import cors from 'cors'; // Import the cors middleware
 
 dotenv.config(); // Load environment variables
 
 const app = express();
-
-// Use the cors middleware
-app.use(cors());
 
 // Create a MySQL connection pool
 const pool = mysql.createPool({
@@ -27,7 +21,7 @@ const pool = mysql.createPool({
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send("from backend server");
+    return res.json({ message: "Hello from backend server" });
 });
 
 // Create a route to handle POST requests to add data to the database
@@ -37,11 +31,10 @@ app.post('/submit-form', (req, res) => {
     pool.query('INSERT INTO users (email, password, age, gender, delivery) VALUES (?, ?, ?, ?, ?)', [email, password, age, gender, delivery], (err, results) => {
         if (err) {
             console.error('Error inserting data into MySQL database:', err);
-            res.status(500).json({ error: 'Failed to insert data into database' });
-            return;
+            return res.status(500).json({ error: 'Failed to insert data into database' });
         }
         console.log('Data inserted into MySQL database');
-        res.status(200).json({ message: 'Data inserted successfully' });
+        return res.status(200).json({ message: 'Data inserted successfully' });
     });
 });
 

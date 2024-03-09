@@ -2,8 +2,8 @@ import express from 'express';
 import mysql from 'mysql2';
 import dotenv from 'dotenv';
 import cors from 'cors';
-
-dotenv.config(); // Load environment variables
+import { config } from 'dotenv';
+config({ path: "./config/config.env" });// Load environment variables
 
 const app = express();
 
@@ -30,6 +30,7 @@ app.get('/', (req, res) => {
 // Create a route to handle POST requests to add data to the database
 app.post('/submit-form', (req, res) => {
     const { email, password, age, gender, delivery } = req.body;
+
     // Perform a SQL query to insert data into the database
     pool.query('INSERT INTO users (email, password, age, gender, delivery) VALUES (?, ?, ?, ?, ?)', [email, password, age, gender, delivery], (err, results) => {
         if (err) {
@@ -42,7 +43,7 @@ app.post('/submit-form', (req, res) => {
 });
 
 // Start the Express server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

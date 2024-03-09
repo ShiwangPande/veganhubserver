@@ -3,10 +3,14 @@
 import express from 'express';
 import mysql from 'mysql2';
 import dotenv from 'dotenv';
+import cors from 'cors'; // Import the cors middleware
 
 dotenv.config(); // Load environment variables
 
 const app = express();
+
+// Use the cors middleware
+app.use(cors());
 
 // Create a MySQL connection pool
 const pool = mysql.createPool({
@@ -22,8 +26,8 @@ const pool = mysql.createPool({
 // Middleware to parse JSON requests
 app.use(express.json());
 
-app.get('/', (req, res) => { // Corrected the request and response parameters
-    res.send("from backend server"); // Changed `join` to `send`
+app.get('/', (req, res) => {
+    res.send("from backend server");
 });
 
 // Create a route to handle POST requests to add data to the database

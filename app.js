@@ -35,6 +35,9 @@ app.post('/demo', async (req, res) => {
     let user = new User();
     user.username = req.body.username;
     user.password = req.body.password;
+    user.age = req.body.age;
+    user.gender = req.body.gender;
+    user.delivery = req.body.delivery;
     const doc = await user.save();
 
     console.log(doc);

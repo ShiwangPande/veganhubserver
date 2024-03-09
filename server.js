@@ -22,9 +22,9 @@ const pool = mysql.createPool({
 // Middleware to parse JSON requests
 app.use(express.json());
 
-app.get('/', (re, res) => {
-    return res.join("from backend server");
-})
+app.get('/', (req, res) => { // Corrected the request and response parameters
+    res.send("from backend server"); // Changed `join` to `send`
+});
 
 // Create a route to handle POST requests to add data to the database
 app.post('/submit-form', (req, res) => {

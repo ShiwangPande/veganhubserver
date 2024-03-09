@@ -6,7 +6,7 @@ import sendMail from './controllers/sendmail.js';
 import bodyparser from 'body-parser';
 import nodemailer from 'nodemailer';
 config({ path: "./config/config.env" });
-
+import { User } from "./models/userModel.js"
 export const app = express();
 
 app.use(cors());
@@ -29,6 +29,23 @@ app.get("/api/getkey", (req, res) => {
         key: process.env.RAZORPAY_API_KEY,
     });
 })
+
+app.post('/demo', async (req, res) => {
+
+    let user = new User();
+    user.username = req.body.username;
+    user.password = req.body.password;
+    const doc = await user.save();
+
+    console.log(doc);
+    res.json(doc);
+})
+
+app.get('/demo', async (req, res) => {
+    const docs = await User.find({});
+    res.json(docs)
+})
+
 
 app.post("/api/sendmail", (req, res) => {
 

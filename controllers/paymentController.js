@@ -5,7 +5,7 @@ import { Payment } from "../models/paymentModel.js";
 export const checkout = async (req, res) => {
     const options = {
         amount: Number(req.body.amount * 100),
-        currency: "INR",
+        currency: "USD",
     };
     const order = await instance.orders.create(options);
 

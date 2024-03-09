@@ -5,9 +5,11 @@ import cors from 'cors';
 import { config } from 'dotenv';
 config({ path: "./config/config.env" });// Load environment variables
 
+
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 
 // Create a MySQL connection pool
 const pool = mysql.createPool({
@@ -19,9 +21,6 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0
 });
-
-// Middleware to parse JSON requests
-app.use(express.json());
 
 app.get('/', (req, res) => {
     return res.json({ message: "Hello from backend server" });
@@ -43,7 +42,7 @@ app.post('/submit-form', (req, res) => {
 });
 
 // Start the Express server
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

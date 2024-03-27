@@ -3,6 +3,8 @@ import mysql from 'mysql2';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { config } from 'dotenv';
+import bcrypt from 'bcrypt';
+
 config({ path: "./config/config.env" });// Load environment variables
 
 
@@ -27,8 +29,13 @@ app.get('/', (req, res) => {
 });
 
 // Create a route to handle POST requests to add data to the database
-app.post('/submit-form', (req, res) => {
+app.post('/submit-form', async (req, res) => {
     const { email, password, age, gender, delivery } = req.body;
+    // Generate a salt for password hashing
+    const salt = await bcrypt.genSalt(10);
+
+    // Hash the password using the salt
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     // Perform a SQL query to insert data into the database
     pool.query('INSERT INTO users (email, password, age, gender, delivery) VALUES (?, ?, ?, ?, ?)', [email, password, age, gender, delivery], (err, results) => {

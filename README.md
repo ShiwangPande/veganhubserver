@@ -19,8 +19,8 @@ This is the backend server for Vegan Hub, an application designed to connect use
 1. Clone the repository:
 
    ```bash
-    git clone <repository-url>
-    cd <repository-name>
+    git clone https://github.com/ShiwangPande/veganhubserver.git
+    cd veganhubserver-main
    ```
 2. Install dependencies:
 
